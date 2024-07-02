@@ -1,3 +1,7 @@
+const prompt = require("prompt-sync")({ sigint: true });
+const userInput = prompt("Enter display count: ");
+// console.log(userInput);
+
 var fs = require("fs");
 
 fs.readFile("./test.txt", "utf-8",function read(err, data) {
@@ -29,19 +33,21 @@ function getDomains(text) {
   for (let domain of domains) {
     // console.log(domain);
     domainObj[domain] = domainObj[domain] + 1 || 1;
-    
+
   }
 
   let commonDom = [];
 
   for (let domain in domainObj) {
-    commonDom.push([domain, domainObj[domain]]);
+    if (domainObj[domain] > userInput) {
+      commonDom.push([domain, domainObj[domain]])
+    };
 }
 
   commonDom.sort(function(a, b) {
     return b[1] - a[1];
   });
 
-  console.log(commonDom.slice(0, 10));
+  console.log(commonDom);
 
 }
