@@ -15,8 +15,8 @@ fs.readFile("./test.txt", "utf-8",function read(err, data) {
 });
 
 function processFile (text) {
-const matches = text.match(/@softwire./gi);
-console.log(`There are ${matches.length} softwire emails in your file`);
+const matches = text.match(/\b[A-Za-z0-9._%+-]+@softwire\.com\b/gi);
+console.log(`There are ${matches.length} softwire.com emails in your file`);
 
 }
 
