@@ -8,21 +8,15 @@ fs.readFile("./test.txt", "utf-8",function read(err, data) {
       throw err;
   }
 
-  processFile(data);
-
   getDomains(data);
 
 });
 
-function processFile (text) {
-const matches = text.match(/softwire.com/g);
-console.log(`There are ${matches.length} softwire emails in your file`);
-
-}
-
 function getDomains(text) {
 
   const domains = text.match(/@[A-Z0-9.'_%+-]*/gi);
+
+  console.log(`There are ${domains.length} emails in your file`);
 
   const domainObj = {};
 
@@ -45,7 +39,7 @@ function getDomains(text) {
   const commonDomObj = {};
 
   for (let i = 0; i < commonDom.length; i++) {
-    commonDomObj[commonDom[i][0]] = domainObj[commonDom[i][0]];
+    commonDomObj[commonDom[i][0].slice(1)] = domainObj[commonDom[i][0]];
   }
 
   console.log(`The domains that occur more than ${userInput} times are:`)
