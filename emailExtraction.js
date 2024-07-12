@@ -1,26 +1,22 @@
 const prompt = require("prompt-sync")({ sigint: true });
-const userInput = prompt("Enter display count: ");
-// console.log(userInput);
+const userInput = prompt("Enter a frequency: ");
 
-var fs = require("fs");
+const fs = require("fs");
 
 fs.readFile("./test.txt", "utf-8",function read(err, data) {
   if (err) {
       throw err;
   }
 
-  // Invoke the next step here however you like
-  //console.log(content);   // Put all of the code here (not the best solution)
-  processFile(data);   // Or put the next step in a function and invoke it
+  processFile(data);
 
   getDomains(data);
 
 });
 
 function processFile (text) {
-let counter = 0;
 const matches = text.match(/softwire.com/g);
-console.log(matches.length);
+console.log(`There are ${matches.length} softwire emails in your file`);
 
 }
 
@@ -31,12 +27,10 @@ function getDomains(text) {
   const domainObj = {};
 
   for (let domain of domains) {
-    // console.log(domain);
     domainObj[domain] = domainObj[domain] + 1 || 1;
-
   }
 
-  let commonDom = [];
+  const commonDom = [];
 
   for (let domain in domainObj) {
     if (domainObj[domain] > userInput) {
@@ -48,6 +42,13 @@ function getDomains(text) {
     return b[1] - a[1];
   });
 
-  console.log(commonDom);
+  const commonDomObj = {};
+
+  for (let i = 0; i < commonDom.length; i++) {
+    commonDomObj[commonDom[i][0]] = domainObj[commonDom[i][0]];
+  }
+
+  console.log(`The domains that occur more than ${userInput} times are:`)
+  console.log(commonDomObj);
 
 }
