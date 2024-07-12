@@ -8,9 +8,17 @@ fs.readFile("./test.txt", "utf-8",function read(err, data) {
       throw err;
   }
 
+  processFile(data);
+
   getDomains(data);
 
 });
+
+function processFile (text) {
+const matches = text.match(/@softwire./gi);
+console.log(`There are ${matches.length} softwire emails in your file`);
+
+}
 
 function getDomains(text) {
 
